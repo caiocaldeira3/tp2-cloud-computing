@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ml-container
-          image: quay.io/caiocaldeira/ml-container:0.71
+          image: quay.io/caiocaldeira/ml-container:0.8
           volumeMounts:
             - mountPath: /project2-pv2
               name: project2-pv2
@@ -23,16 +23,16 @@ spec:
             value: /project2-pv2/2023_spotify_ds1.csv
           - name: MODEL_PATH
             value: /project2-pv2/rules.pkl
-        # - name: server-container
-        #   image: quay.io/caiocaldeira/server-container:0.6
-        #   env:
-        #   - name: MODEL_PATH
-        #     value: /project2-pv2/rules.pkl
-        #   ports:
-        #   - containerPort: 52007
-        #   volumeMounts:
-        #     - mountPath: /project2-pv2
-        #       name: project2-pv2
+        - name: server-container
+          image: quay.io/caiocaldeira/server-container:0.6
+          env:
+          - name: MODEL_PATH
+            value: /project2-pv2/rules.pkl
+          ports:
+          - containerPort: 52007
+          volumeMounts:
+            - mountPath: /project2-pv2
+              name: project2-pv2
       volumes:
         - name: project2-pv2
           persistentVolumeClaim:
