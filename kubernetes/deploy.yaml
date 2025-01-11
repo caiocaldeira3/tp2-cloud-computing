@@ -1,39 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: recommend-model-deployment
+  name: server-deploy
+  namespace: caiocaldeira
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: recommend-model
+      app: server
   template:
     metadata:
       labels:
-        app: recommend-model
+        app: server
     spec:
       containers:
-        - name: ml-container
-          image: quay.io/caiocaldeira/ml-container:0.8
-          volumeMounts:
-            - mountPath: /project2-pv2
-              name: project2-pv2
-          env:
-          - name: DATASET_PATH
-            value: /project2-pv2/2023_spotify_ds1.csv
-          - name: MODEL_PATH
-            value: /project2-pv2/rules.pkl
         - name: server-container
           image: quay.io/caiocaldeira/server-container:0.6
-          env:
-          - name: MODEL_PATH
-            value: /project2-pv2/rules.pkl
+          imagePullPolicy: Always
           ports:
-          - containerPort: 52007
+            - containerPort: 52007
+          env:
+            - name: MODEL_PATH
+              value: /project2-pv2/rules.pkl
           volumeMounts:
-            - mountPath: /project2-pv2
-              name: project2-pv2
+            - name: server-volume
+              mountPath: /project2-pv2
       volumes:
-        - name: project2-pv2
+        - name: server-volume
           persistentVolumeClaim:
             claimName: project2-pv2-caiocaldeira

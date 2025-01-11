@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: model-job
+  namespace: caiocaldeira
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: ml-container
+          image: quay.io/caiocaldeira/ml-container:0.8
+          env:
+            - name: DATASET_PATH
+              value: /project2-pv2/2023_spotify_ds1.csv
+            - name: MODEL_PATH
+              value: /project2-pv2/rules.pkl
+          volumeMounts:
+            - name: model-volume
+              mountPath: /project2-pv2
+      volumes:
+        - name: model-volume
+          persistentVolumeClaim:
+            claimName: project2-pv2-caiocaldeira
