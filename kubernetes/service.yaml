@@ -5,8 +5,7 @@ metadata:
   namespace: caiocaldeira
 spec:
   selector:
-    app: playlist-recommender
-    role: server
+    app: server-app
   ports:
   - protocol: TCP
     port: 52007
