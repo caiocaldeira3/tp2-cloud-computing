@@ -18,7 +18,7 @@ spec:
           image: quay.io/caiocaldeira/server-container:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 52007
+            - containerPort: 5000
           env:
             - name: MODEL_PATH
               value: /project2-pv2/rules.pkl
