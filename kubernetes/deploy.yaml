@@ -36,4 +36,4 @@ spec:
       volumes:
         - name: project2-pv2
           persistentVolumeClaim:
-            claimName: project2-pvc-caiocaldeira
+            claimName: project2-pv2-caiocaldeira
