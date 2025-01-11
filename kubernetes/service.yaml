@@ -6,9 +6,9 @@ metadata:
 spec:
   selector:
     app: playlist-recommender
+    role: server
   ports:
-    - name: http
-      port: 52007
-      targetPort: 5000
-      nodePort: 52007
+    port: 52007
+    nodePort: 52007
+    targetPort: 5000
   type: NodePort
