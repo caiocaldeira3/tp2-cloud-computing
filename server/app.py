@@ -14,10 +14,12 @@ import pickle
 
 import flask
 from flask import render_template, request
+from flask_cors import CORS
 
 from models import RecommendRequest, RecommendResponse
 
 app = flask.Flask("TP2-Backend")
+CORS(app)
 
 with open(os.environ["MODEL_PATH"], "rb") as model_file:
     app.model = pickle.load(model_file)
