@@ -8,7 +8,7 @@ WORKDIR /server
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENV VERSION=0.5
+ENV VERSION=0.8
 ENV DATE=10-01-2025
 ENV MODEL_PATH="/project2-pv2/rules.pkl"
 
