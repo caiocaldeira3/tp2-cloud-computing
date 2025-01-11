@@ -77,4 +77,4 @@ def recommend () -> flask.Response:
     return flask.jsonify(resp.__dict__)
 
 if __name__ == "__main__":
-    app.run(port=os.environ["PORT"], debug=True)
+    app.run(host=os.environ["HOST"], port=os.environ["PORT"], debug=True)
