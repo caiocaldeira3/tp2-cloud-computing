@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: server-container
-          image: quay.io/caiocaldeira/server-container:0.6
+          image: quay.io/caiocaldeira/server-container:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 52007

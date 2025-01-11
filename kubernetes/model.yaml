@@ -9,7 +9,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: ml-container
-          image: quay.io/caiocaldeira/ml-container:0.8
+          image: quay.io/caiocaldeira/ml-container:latest
           env:
             - name: DATASET_PATH
               value: /project2-pv2/2023_spotify_ds1.csv

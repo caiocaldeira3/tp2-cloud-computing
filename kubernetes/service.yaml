@@ -9,8 +9,8 @@ spec:
     app: playlist-recommender
     role: server
   ports:
-  - protocol: TCP
+  - protocol: HTTP
     port: 52007
     nodePort: 52007
-    targetPort: 52007
+    targetPort: 5000
   type: NodePort

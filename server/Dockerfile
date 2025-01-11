@@ -20,10 +20,10 @@ COPY service.env .
 # Set environment variables
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_RUN_PORT=52007
+ENV FLASK_RUN_PORT=5000
 
-# Expose port 52007
-EXPOSE 52007
+# Expose port 5000
+EXPOSE 5000
 
 # Set the default command to run the Flask app
 CMD ["flask", "run"]
