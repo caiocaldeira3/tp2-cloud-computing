@@ -25,11 +25,6 @@ def get_playlists_songs (path: str) -> list[list[str]]:
 
     return raw_dataset.groupby("pid")["track_name"].apply(list).tolist()
 
-# check if there exists the file in "DATASET_PATH":
-if not os.path.exists(os.environ["DATASET_PATH"]):
-    while True:
-        pass
-
 item_set = get_playlists_songs(os.environ["DATASET_PATH"])
 
 log.info("item set correctly extracted")
