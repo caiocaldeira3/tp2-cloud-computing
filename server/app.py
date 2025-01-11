@@ -13,6 +13,7 @@ dotenv.load_dotenv(ROOT_PATH / "service.env", override=False)
 import pickle
 
 import flask
+from flask import render_template, request
 
 from models import RecommendRequest, RecommendResponse
 
@@ -33,6 +34,30 @@ def recommend_items (current_items, max_recommend: int = 20) -> list[str]:
             recommendations.update(consequent)
 
     return list(recommendations - set(current_items))[:max_recommend]
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+    recommendations = None
+    error = None
+
+    if request.method == "POST":
+        try:
+            recommendations = RecommendResponse(
+                songs=recommend_items(request.form.get("songs", "").split(",")),
+                version=app.version,
+                model_date=app.model_date,
+            )
+
+        except Exception as e:
+            error = f"An error occurred: {e}"
+
+    return render_template(
+        "index.html",
+        recommendations=recommendations.songs if recommendations else None,
+        version=recommendations.version if recommendations else None,
+        model_date=recommendations.model_date if recommendations else None,
+        error=error
+    )
 
 @app.route("/api/recommend", methods=["POST"])
 def recommend () -> flask.Response:
