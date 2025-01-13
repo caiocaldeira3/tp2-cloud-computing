@@ -1,0 +1,12 @@
+project: caiocaldeira-project
+source:
+  repoURL: https://github.com/caiocaldeira3/tp2-cloud-computing
+  path: kubernetes/
+  targetRevision: HEAD
+destination:
+  server: https://kubernetes.default.svc
+  namespace: caiocaldeira
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
