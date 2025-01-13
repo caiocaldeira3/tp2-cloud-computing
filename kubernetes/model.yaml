@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: model-job-
+  name: model-job-ds1
   namespace: caiocaldeira
 spec:
   template:
