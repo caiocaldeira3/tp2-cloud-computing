@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: model-job-ds1
+  name: model-job-ds2
   namespace: caiocaldeira
 spec:
   template:
@@ -12,7 +12,7 @@ spec:
           image: quay.io/caiocaldeira/ml-container:latest
           env:
             - name: DATASET_PATH
-              value: /project2-pv2/2023_spotify_ds1.csv
+              value: /project2-pv2/2023_spotify_ds2.csv
             - name: MODEL_PATH
               value: /project2-pv2/rules.pkl
           volumeMounts:
