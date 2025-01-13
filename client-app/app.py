@@ -16,7 +16,7 @@ from flask import Flask, request, jsonify, render_template
 app = Flask(__name__, template_folder="templates")
 
 # Replace with the URL of the other application
-RECOMMENDATION_API_URL = os.getenv("RECOMMENDATION_API_URL", "https://localhost:52007/api")
+RECOMMENDATION_API_URL = "http://localhost:52007/api/recommend"
 
 @app.route("/")
 def index():
@@ -32,7 +32,7 @@ def submit_songs():
 
         # Forward die Liste zu der anderen Anwendung
         response = requests.post(
-            f"{RECOMMENDATION_API_URL}/recommend",
+            RECOMMENDATION_API_URL,
             json={"songs": songs},
             headers={"Content-Type": "application/json"}
         )
