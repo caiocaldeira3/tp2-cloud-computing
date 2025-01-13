@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Songs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .song-input {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .song-input input {
+            flex: 1;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Submit Songs</h1>
+        <form action="/submit-songs" method="POST">
+            <div id="songs-container">
+                <div class="song-input">
+                    <input type="text" name="songs" placeholder="Enter song title" required>
+                    <button type="button" onclick="removeSong(this)">Remove</button>
+                </div>
+            </div>
+            <button type="button" onclick="addSong()">Add Another Song</button>
+            <br><br>
+            <button type="submit">Submit Songs</button>
+        </form>
+    </div>
+
+    <script>
+        function addSong() {
+            const container = document.getElementById('songs-container');
+            const songInput = document.createElement('div');
+            songInput.className = 'song-input';
+            songInput.innerHTML = `
+                <input type="text" name="songs" placeholder="Enter song title" required>
+                <button type="button" onclick="removeSong(this)">Remove</button>
+            `;
+            container.appendChild(songInput);
+        }
+
+        function removeSong(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</body>
+</html>

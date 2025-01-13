@@ -13,7 +13,7 @@ dotenv.load_dotenv(ROOT_PATH / "service.env", override=False)
 import pickle
 
 import flask
-from flask import render_template, request
+from flask import jsonify, render_template, request
 from flask_cors import CORS
 
 from models import RecommendRequest, RecommendResponse
@@ -37,29 +37,31 @@ def recommend_items (current_items, max_recommend: int = 20) -> list[str]:
 
     return list(recommendations - set(current_items))[:max_recommend]
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def index():
-    recommendations = None
-    error = None
+    return render_template("get-list-songs.html")
 
-    if request.method == "POST":
-        try:
-            recommendations = RecommendResponse(
-                songs=recommend_items(request.form.get("songs", "").split(",")),
-                version=app.version,
-                model_date=app.model_date,
-            )
+@app.route("/submit-songs", methods=["POST"])
+def submit_songs():
+    try:
+        # Get die Liste der Songs from the form
+        songs = request.form.getlist("songs")
+        if not songs:
+            return jsonify({"error": "No songs provided."}), 400
 
-        except Exception as e:
-            error = f"An error occurred: {e}"
+        # Forward die Liste zu der anderen Anwendung
+        recommendations = RecommendResponse(
+            songs=recommend_items(request.form.get("songs", "").split(",")),
+            version=app.version,
+            model_date=app.model_date,
+        )
 
-    return render_template(
-        "index.html",
-        recommendations=recommendations.songs if recommendations else None,
-        version=recommendations.version if recommendations else None,
-        model_date=recommendations.model_date if recommendations else None,
-        error=error
-    )
+        return jsonify(
+            {"message": "Songs successfully forwarded.", "response": recommendations.__dict__}
+        ), 200
+
+    except Exception as e:
+        return jsonify({"error": "An error occurred.", "details": str(e)}), 500
 
 @app.route("/api/recommend", methods=["POST"])
 def recommend () -> flask.Response:
